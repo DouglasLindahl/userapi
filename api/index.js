@@ -1,28 +1,24 @@
 const express = require("express");
-const { faker } = require("@faker-js/faker");
 
 const app = express();
 app.use(express.json());
 
-const sports = [
-  "Soccer",
-  "Basketball",
-  "Tennis",
-  "Cricket",
-  "Baseball",
-  "Hockey",
-  "Swimming",
-  "Running",
+const users = [
+  {
+    id: 1,
+    name: "Noel Carlfalk",
+    email: "noel@carlfalk.se",
+    phone: "123-456-7890",
+    favoriteSport: "football",
+  },
+  {
+    id: 2,
+    name: "Douglas Lindahl",
+    email: "douglas.lindahl@gmail.com",
+    phone: "987-654-3210",
+    favoriteSport: "Basketball",
+  },
 ];
-
-// Generate fake users
-let users = Array.from({ length: 10 }, (_, id) => ({
-  id: id + 1,
-  name: faker.person.fullName(),
-  email: faker.internet.email(),
-  phone: faker.phone.number(),
-  favoriteSport: sports[Math.floor(Math.random() * sports.length)],
-}));
 
 // Get all users
 app.get("/api/users", (req, res) => {
@@ -39,12 +35,10 @@ app.get("/api/users/:id", (req, res) => {
 app.post("/api/users", (req, res) => {
   const newUser = {
     id: users.length + 1,
-    name: req.body.name || faker.person.fullName(),
-    email: req.body.email || faker.internet.email(),
-    phone: req.body.phone || faker.phone.number(),
-    favoriteSport:
-      req.body.favoriteSport ||
-      sports[Math.floor(Math.random() * sports.length)],
+    name: req.body.name,
+    email: req.body.email,
+    phone: req.body.phone,
+    favoriteSport: req.body.favoriteSport,
   };
   users.push(newUser);
   res.status(201).json(newUser);
