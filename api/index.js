@@ -4,12 +4,24 @@ const { faker } = require("@faker-js/faker");
 const app = express();
 app.use(express.json());
 
+const sports = [
+  "Soccer",
+  "Basketball",
+  "Tennis",
+  "Cricket",
+  "Baseball",
+  "Hockey",
+  "Swimming",
+  "Running",
+];
+
 // Generate fake users
 let users = Array.from({ length: 10 }, (_, id) => ({
   id: id + 1,
   name: faker.person.fullName(),
   email: faker.internet.email(),
   phone: faker.phone.number(),
+  favoriteSport: sports[Math.floor(Math.random() * sports.length)],
 }));
 
 // Get all users
@@ -30,6 +42,9 @@ app.post("/api/users", (req, res) => {
     name: req.body.name || faker.person.fullName(),
     email: req.body.email || faker.internet.email(),
     phone: req.body.phone || faker.phone.number(),
+    favoriteSport:
+      req.body.favoriteSport ||
+      sports[Math.floor(Math.random() * sports.length)],
   };
   users.push(newUser);
   res.status(201).json(newUser);
