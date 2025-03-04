@@ -12,7 +12,7 @@ const users = [
     favoriteSport: "football",
     minHeight: "190",
     maxHeight: "195",
-    minWeight: "72",
+    minWeight: "70",
     maxWeight: "80",
     minAge: "28",
     maxAge: "36",
