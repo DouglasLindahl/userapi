@@ -3,7 +3,7 @@ const app = express();
 const apiRoutes = require("./api/index"); // ✅ Import routes
 
 app.use(express.json()); // ✅ Enable JSON body parsing
-app.use("/", apiRoutes); // ✅ Directly use routes
+app.use("/api", apiRoutes); // ✅ Fix: Mount under `/api`
 
 const PORT = 3000;
 app.listen(PORT, () => {

@@ -3,16 +3,18 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 
-const playersFilePath = path.join(__dirname, "../players.txt");
+const playersFilePath = "tmp/players.txt"; // ✅ Use Vercel-compatible path
 
 // Endpoint to save JSON data into players.txt
 router.post("/upload", (req, res) => {
-  const jsonData = req.body;
+  console.log("Incoming Data:", req.body); // ✅ Debugging log
 
-  // Convert JSON to string with formatting
-  const dataString = JSON.stringify(jsonData, null, 2);
+  if (!req.body || Object.keys(req.body).length === 0) {
+    return res.status(400).json({ message: "Invalid or empty JSON data" });
+  }
 
-  // Write data to players.txt (overwrite the file)
+  const dataString = JSON.stringify(req.body, null, 2);
+
   fs.writeFile(playersFilePath, dataString, (err) => {
     if (err) {
       console.error("Error writing to file:", err);
@@ -29,9 +31,8 @@ router.get("/players", (req, res) => {
       console.error("Error reading file:", err);
       return res.status(500).json({ message: "Error reading data" });
     }
-
     try {
-      const jsonData = JSON.parse(data); // Convert file data to JSON
+      const jsonData = JSON.parse(data);
       res.json(jsonData);
     } catch (parseError) {
       res.status(500).json({ message: "Error parsing JSON data" });
@@ -67,4 +68,4 @@ router.get("/users/:id", (req, res) => {
   user ? res.json(user) : res.status(404).json({ message: "User not found" });
 });
 
-module.exports = router; // ✅ Export the router
+module.exports = router;
