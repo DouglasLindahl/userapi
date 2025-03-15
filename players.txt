@@ -1,0 +1,16 @@
+{
+  "players": [
+    {
+      "id": 1,
+      "name": "Lionel Messi",
+      "position": "Forward",
+      "age": 36
+    },
+    {
+      "id": 2,
+      "name": "Cristiano Ronaldo",
+      "position": "Forward",
+      "age": 39
+    }
+  ]
+}
