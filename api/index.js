@@ -3,7 +3,9 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 
-const playersFilePath = "tmp/players.txt"; // ✅ Use Vercel-compatible path
+const playersFilePath = process.env.VERCEL
+  ? "/tmp/players.txt"
+  : path.join(__dirname, "players.txt");
 
 // Endpoint to save JSON data into players.txt
 router.post("/upload", (req, res) => {
@@ -24,18 +26,23 @@ router.post("/upload", (req, res) => {
   });
 });
 
-// Endpoint to read and return the contents of players.txt
 router.get("/players", (req, res) => {
   fs.readFile(playersFilePath, "utf8", (err, data) => {
     if (err) {
-      console.error("Error reading file:", err);
-      return res.status(500).json({ message: "Error reading data" });
+      console.error("❌ Error reading file:", err); // ✅ Log error
+      return res
+        .status(500)
+        .json({ message: "Error reading data", error: err.message });
     }
     try {
       const jsonData = JSON.parse(data);
       res.json(jsonData);
     } catch (parseError) {
-      res.status(500).json({ message: "Error parsing JSON data" });
+      console.error("❌ Error parsing JSON:", parseError); // ✅ Log parsing errors
+      res.status(500).json({
+        message: "Error parsing JSON data",
+        error: parseError.message,
+      });
     }
   });
 });
