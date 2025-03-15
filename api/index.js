@@ -28,7 +28,13 @@ app.post("/upload", (req, res) => {
   });
 });
 
-app.get("/players", (req, res) => {
+router.get("/players", (req, res) => {
+  // ✅ Check if the file exists before reading it
+  if (!fs.existsSync(playersFilePath)) {
+    console.warn("⚠️ File not found. Creating an empty file...");
+    fs.writeFileSync(playersFilePath, "[]", "utf8"); // Create an empty JSON array
+  }
+
   fs.readFile(playersFilePath, "utf8", (err, data) => {
     if (err) {
       console.error("❌ Error reading file:", err);
