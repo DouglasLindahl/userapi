@@ -3,12 +3,12 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 
-/* const playersFilePath = process.env.VERCEL
+const playersFilePath = process.env.VERCEL
   ? "/tmp/players.txt"
-  : path.join(__dirname, "players.txt"); */
+  : path.join(__dirname, "players.txt");
 
 // Endpoint to save JSON data into players.txt
-/* router.post("/upload", (req, res) => {
+router.post("/upload", (req, res) => {
   console.log("Incoming Data:", req.body); // ✅ Debugging log
 
   if (!req.body || Object.keys(req.body).length === 0) {
@@ -24,9 +24,9 @@ const path = require("path");
     }
     res.status(200).json({ message: "Data saved successfully!" });
   });
-}); */
+});
 
-/* router.get("/players", (req, res) => {
+router.get("/players", (req, res) => {
   fs.readFile(playersFilePath, "utf8", (err, data) => {
     if (err) {
       console.error("❌ Error reading file:", err); // ✅ Log error
@@ -45,7 +45,7 @@ const path = require("path");
       });
     }
   });
-}); */
+});
 
 const users = [
   {
