@@ -1,3 +1,5 @@
+const express = require("express");
+
 const app = express();
 app.use(express.json());
 
@@ -8,16 +10,6 @@ const users = [
     email: "noel@carlfalk.se",
     phone: "123-456-7890",
     favoriteSport: "football",
-    minHeight: "190",
-    maxHeight: "195",
-    minWeight: "70",
-    maxWeight: "80",
-    minAge: "28",
-    maxAge: "36",
-    gender: "male",
-    position: "",
-    nationality: "english",
-    league: "",
   },
   {
     id: 2,
@@ -25,16 +17,6 @@ const users = [
     email: "douglas.lindahl@gmail.com",
     phone: "987-654-3210",
     favoriteSport: "football",
-    minHeight: "190",
-    maxHeight: "195",
-    minWeight: "72",
-    maxWeight: "80",
-    minAge: "28",
-    maxAge: "36",
-    gender: "male",
-    position: "",
-    nationality: "english",
-    league: "Superliga",
   },
 ];
 
@@ -62,4 +44,5 @@ app.post("/api/users", (req, res) => {
   res.status(201).json(newUser);
 });
 
-module.exports = app;
+// Vercel requires a function export
+module.exports = (req, res) => app(req, res);
