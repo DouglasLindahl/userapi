@@ -1,14 +1,16 @@
 const express = require("express");
-const router = express.Router();
 const fs = require("fs");
 const path = require("path");
+
+const app = express();
+app.use(express.json()); // ✅ Middleware to parse JSON
 
 const playersFilePath = process.env.VERCEL
   ? "/tmp/players.txt"
   : path.join(__dirname, "players.txt");
 
 // Endpoint to save JSON data into players.txt
-router.post("/upload", (req, res) => {
+app.post("/upload", (req, res) => {
   console.log("Incoming Data:", req.body); // ✅ Debugging log
 
   if (!req.body || Object.keys(req.body).length === 0) {
@@ -26,10 +28,10 @@ router.post("/upload", (req, res) => {
   });
 });
 
-router.get("/players", (req, res) => {
+app.get("/players", (req, res) => {
   fs.readFile(playersFilePath, "utf8", (err, data) => {
     if (err) {
-      console.error("❌ Error reading file:", err); // ✅ Log error
+      console.error("❌ Error reading file:", err);
       return res
         .status(500)
         .json({ message: "Error reading data", error: err.message });
@@ -38,7 +40,7 @@ router.get("/players", (req, res) => {
       const jsonData = JSON.parse(data);
       res.json(jsonData);
     } catch (parseError) {
-      console.error("❌ Error parsing JSON:", parseError); // ✅ Log parsing errors
+      console.error("❌ Error parsing JSON:", parseError);
       res.status(500).json({
         message: "Error parsing JSON data",
         error: parseError.message,
@@ -64,15 +66,14 @@ const users = [
   },
 ];
 
-// Get all users
-router.get("/users", (req, res) => {
+app.get("/users", (req, res) => {
   res.json(users);
 });
 
-// Get user by ID
-router.get("/users/:id", (req, res) => {
+app.get("/users/:id", (req, res) => {
   const user = users.find((u) => u.id === parseInt(req.params.id));
   user ? res.json(user) : res.status(404).json({ message: "User not found" });
 });
 
-module.exports = router;
+// ✅ Required for Vercel
+module.exports = app;
