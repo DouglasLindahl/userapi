@@ -1,4 +1,6 @@
 const express = require("express");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 app.use(express.json());
@@ -64,5 +66,29 @@ app.post("/api/users", (req, res) => {
   res.status(201).json(newUser);
 });
 
+// Get all players from players.txt
+app.get("/api/players", (req, res) => {
+  const filePath = path.join(__dirname, "../players.txt");
+
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).json({ message: "Error reading players file" });
+    }
+    try {
+      const players = JSON.parse(data);
+      res.json(players);
+    } catch (parseError) {
+      res.status(500).json({ message: "Error parsing players file" });
+    }
+  });
+});
+
 // Vercel requires a function export
-module.exports = (req, res) => app(req, res);
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () =>
+    console.log(`Server running on http://localhost:${PORT}`)
+  );
+} else {
+  module.exports = app;
+}
