@@ -43,6 +43,7 @@ const users = [
 ];
 
 const usersFilePath = path.join(__dirname, "../users.json");
+const usersFilePath2 = path.join(__dirname, "../users2.json");
 
 // Helper function to read users from users.json
 const getUsers = () => {
@@ -55,9 +56,24 @@ const getUsers = () => {
   }
 };
 
+const getUsers2 = () => {
+  try {
+    const data = fs.readFileSync(usersFilePath2, "utf8");
+    return JSON.parse(data);
+  } catch (err) {
+    console.error("Error reading users.json:", err);
+    return [];
+  }
+};
+
 // Get all users
 app.get("/api/users", (req, res) => {
   const users = getUsers();
+  res.json(users);
+});
+
+app.get("/api/users2", (req, res) => {
+  const users = getUsers2();
   res.json(users);
 });
 
