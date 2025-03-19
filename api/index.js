@@ -68,7 +68,7 @@ app.post("/api/users", (req, res) => {
 
 // Get all players from players.txt
 app.get("/api/players", (req, res) => {
-  const filePath = path.join(__dirname, "../players.txt");
+  const filePath = path.join(__dirname, "../players.json");
 
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
