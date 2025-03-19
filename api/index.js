@@ -42,15 +42,23 @@ const users = [
   },
 ];
 
+const usersFilePath = path.join(__dirname, "../users.json");
+
+// Helper function to read users from users.json
+const getUsers = () => {
+  try {
+    const data = fs.readFileSync(usersFilePath, "utf8");
+    return JSON.parse(data);
+  } catch (err) {
+    console.error("Error reading users.json:", err);
+    return [];
+  }
+};
+
 // Get all users
 app.get("/api/users", (req, res) => {
+  const users = getUsers();
   res.json(users);
-});
-
-// Get user by ID
-app.get("/api/users/:id", (req, res) => {
-  const user = users.find((u) => u.id === parseInt(req.params.id));
-  user ? res.json(user) : res.status(404).json({ message: "User not found" });
 });
 
 // Add a new user
