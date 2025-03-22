@@ -1,5 +1,5 @@
-[
-  {
+{
+  "1": {
     "id": 1,
     "name": "Noel Carlfalk",
     "email": "noel@carlfalk.se",
@@ -16,8 +16,8 @@
     "nationality": "english",
     "league": ""
   },
-  {
-    "id": 3,
+  "2": {
+    "id": 2,
     "name": "Douglas Lindahl",
     "email": "douglas.lindahl@gmail.com",
     "phone": "987-654-3210",
@@ -33,4 +33,4 @@
     "nationality": "english",
     "league": ""
   }
-]
+}
