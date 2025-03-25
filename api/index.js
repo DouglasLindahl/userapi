@@ -5,45 +5,10 @@ const path = require("path");
 const app = express();
 app.use(express.json());
 
-const users = [
-  {
-    id: 1,
-    name: "Noel Carlfalk",
-    email: "noel@carlfalk.se",
-    phone: "123-456-7890",
-    favoriteSport: "football",
-    minHeight: "190",
-    maxHeight: "195",
-    minWeight: "72",
-    maxWeight: "80",
-    minAge: "28",
-    maxAge: "36",
-    gender: "male",
-    position: "",
-    nationality: "english",
-    league: "",
-  },
-  {
-    id: 2,
-    name: "Douglas Lindahl",
-    email: "douglas.lindahl@gmail.com",
-    phone: "987-654-3210",
-    favoriteSport: "football",
-    minHeight: "190",
-    maxHeight: "195",
-    minWeight: "72",
-    maxWeight: "80",
-    minAge: "28",
-    maxAge: "36",
-    gender: "male",
-    position: "",
-    nationality: "english",
-    league: "",
-  },
-];
-
 const usersFilePath = path.join(__dirname, "../users.json");
-const usersFilePath2 = path.join(__dirname, "../users2.json");
+const countriesFilePath = path.join(__dirname, "../countries.json");
+const teamsFilePath = path.join(__dirname, "../teams.json");
+const typesFilePath = path.join(__dirname, "../types.json");
 
 // Helper function to read users from users.json
 const getUsers = () => {
@@ -56,9 +21,29 @@ const getUsers = () => {
   }
 };
 
-const getUsers2 = () => {
+const getCountries = () => {
   try {
-    const data = fs.readFileSync(usersFilePath2, "utf8");
+    const data = fs.readFileSync(countriesFilePath, "utf8");
+    return JSON.parse(data);
+  } catch (err) {
+    console.error("Error reading users.json:", err);
+    return [];
+  }
+};
+
+const getTeams = () => {
+  try {
+    const data = fs.readFileSync(teamsFilePath, "utf8");
+    return JSON.parse(data);
+  } catch (err) {
+    console.error("Error reading users.json:", err);
+    return [];
+  }
+};
+
+const getTypes = () => {
+  try {
+    const data = fs.readFileSync(typesFilePath, "utf8");
     return JSON.parse(data);
   } catch (err) {
     console.error("Error reading users.json:", err);
@@ -72,22 +57,19 @@ app.get("/api/users", (req, res) => {
   res.json(users);
 });
 
-app.get("/api/users2", (req, res) => {
-  const users = getUsers2();
-  res.json(users);
+app.get("/api/countries", (req, res) => {
+  const countries = getCountries();
+  res.json(countries);
 });
 
-// Add a new user
-app.post("/api/users", (req, res) => {
-  const newUser = {
-    id: users.length + 1,
-    name: req.body.name,
-    email: req.body.email,
-    phone: req.body.phone,
-    favoriteSport: req.body.favoriteSport,
-  };
-  users.push(newUser);
-  res.status(201).json(newUser);
+app.get("/api/teams", (req, res) => {
+  const teams = getTeams();
+  res.json(teams);
+});
+
+app.get("/api/types", (req, res) => {
+  const types = getTypes();
+  res.json(types);
 });
 
 // Get all players from players.txt
