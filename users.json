@@ -32,5 +32,22 @@
     "positions": ["defender", "attacker", "midfielder"],
     "nationality": "english",
     "league": ""
+  },
+  "3": {
+    "id": 3,
+    "name": "benjamin rehmie",
+    "email": "bkrehmie@gmail.com",
+    "phone": "987-654-3210",
+    "favoriteSport": "football",
+    "minHeight": "186",
+    "maxHeight": "200",
+    "minWeight": "80",
+    "maxWeight": "90",
+    "minAge": "19",
+    "maxAge": "19",
+    "gender": "male",
+    "positions": ["defender", "midfielder"],
+    "nationality": "english",
+    "league": ""
   }
 }
