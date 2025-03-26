@@ -12,7 +12,7 @@
     "minAge": "28",
     "maxAge": "36",
     "gender": "male",
-    "positions": ["defender", "forward", "midfielder"],
+    "positions": ["defender", "attacker", "midfielder"],
     "nationality": "english",
     "league": ""
   },
@@ -29,7 +29,7 @@
     "minAge": "28",
     "maxAge": "36",
     "gender": "male",
-    "positions": ["defender", "forward", "midfielder"],
+    "positions": ["defender", "attacker", "midfielder"],
     "nationality": "english",
     "league": ""
   }
