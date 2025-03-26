@@ -44,7 +44,7 @@
     "minWeight": "80",
     "maxWeight": "90",
     "minAge": "19",
-    "maxAge": "19",
+    "maxAge": "29",
     "gender": "male",
     "positions": ["defender", "midfielder"],
     "nationality": "english",
