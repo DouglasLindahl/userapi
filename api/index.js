@@ -9,6 +9,7 @@ const usersFilePath = path.join(__dirname, "../users.json");
 const countriesFilePath = path.join(__dirname, "../countries.json");
 const teamsFilePath = path.join(__dirname, "../teams.json");
 const typesFilePath = path.join(__dirname, "../types.json");
+const leaguesFilePath = path.join(__dirname, "../leagues.json");
 
 // Helper function to read users from users.json
 const getUsers = () => {
@@ -51,6 +52,16 @@ const getTypes = () => {
   }
 };
 
+const getLeagues = () => {
+  try {
+    const data = fs.readFileSync(leaguesFilePath, "utf8");
+    return JSON.parse(data);
+  } catch (err) {
+    console.error("Error reading users.json:", err);
+    return [];
+  }
+};
+
 // Get all users
 app.get("/api/users", (req, res) => {
   const users = getUsers();
@@ -70,6 +81,11 @@ app.get("/api/teams", (req, res) => {
 app.get("/api/types", (req, res) => {
   const types = getTypes();
   res.json(types);
+});
+
+app.get("/api/leagues", (req, res) => {
+  const leagues = getLeagues();
+  res.json(leagues);
 });
 
 // Get all players from players.txt
